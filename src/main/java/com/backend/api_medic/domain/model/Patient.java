@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Patient {
     private Integer id;
-    private FullName fullName;
+    private String fullName;
     private LocalDateTime birthday;
     private String address;
     private String telephone;

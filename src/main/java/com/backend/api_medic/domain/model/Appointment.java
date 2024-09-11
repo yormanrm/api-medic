@@ -13,6 +13,8 @@ public class Appointment {
     private Integer id;
     private Integer patientId;
     private Integer doctorId;
-    private LocalDateTime dateCreated;
     private String reason;
+    private String status;
+    private LocalDateTime dateCreated;
+    private LocalDateTime dateUpdated;
 }
