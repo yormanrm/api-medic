@@ -15,6 +15,7 @@ public class Appointment {
     private Integer doctorId;
     private String reason;
     private String status;
+    private LocalDateTime appointmentDate;
     private LocalDateTime dateCreated;
     private LocalDateTime dateUpdated;
 }
