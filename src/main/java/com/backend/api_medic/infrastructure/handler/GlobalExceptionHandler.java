@@ -5,8 +5,13 @@ import com.backend.api_medic.infrastructure.exception.CustomException;
 import com.backend.api_medic.infrastructure.exception.PatientAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -25,6 +30,18 @@ public class GlobalExceptionHandler {
         ApiResponseDTO<Object> response = new ApiResponseDTO<>(
                 -1, true, "Unexpected error: " + ex.getMessage(), null);
         return new ResponseEntity<>(response, HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    // Manejo de errores de validación
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ApiResponseDTO<Object>> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        for (FieldError error : ex.getBindingResult().getFieldErrors()) {
+            errors.put(error.getField(), error.getDefaultMessage());
+        }
+        ApiResponseDTO<Object> response = new ApiResponseDTO<>(
+                400, true, "Validation error", errors);
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     // Manejo de pacientes duplicados

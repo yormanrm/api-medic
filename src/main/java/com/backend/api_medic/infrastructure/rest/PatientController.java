@@ -3,6 +3,7 @@ package com.backend.api_medic.infrastructure.rest;
 import com.backend.api_medic.application.PatientService;
 import com.backend.api_medic.domain.model.Patient;
 import com.backend.api_medic.infrastructure.dto.ApiResponseDTO;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class PatientController {
     private PatientService patientService;
 
     @PostMapping("/register")
-    public ResponseEntity<ApiResponseDTO<Object>> register(@RequestBody Patient patient) {
+    public ResponseEntity<ApiResponseDTO<Object>> register(@Valid @RequestBody Patient patient) {
         Patient savedPatient = patientService.save(patient);
         ApiResponseDTO<Object> response = new ApiResponseDTO<>(201, false, "Created patient", savedPatient);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
