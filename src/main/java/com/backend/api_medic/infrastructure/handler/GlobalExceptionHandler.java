@@ -22,7 +22,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponseDTO<Object>> handleGeneralExceptions(Exception ex) {
         ApiResponseDTO<Object> response = new ApiResponseDTO<>(
-                500, true, "Unexpected error: " + ex.getMessage(), null);
+                500,
+                true,
+                "Unexpected error: " + ex.getMessage(),
+                null
+        );
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -34,7 +38,11 @@ public class GlobalExceptionHandler {
             errors.put(error.getField(), error.getDefaultMessage());
         }
         ApiResponseDTO<Object> response = new ApiResponseDTO<>(
-                400, true, "Validation error", errors);
+                400,
+                true,
+                "Validation error",
+                errors
+        );
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
@@ -42,7 +50,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(PatientAlreadyExistsException.class)
     public ResponseEntity<ApiResponseDTO<Object>> handlePatientAlreadyExistsExceptions(PatientAlreadyExistsException ex) {
         ApiResponseDTO<Object> response = new ApiResponseDTO<>(
-                409, true, ex.getMessage(), null);
+                409,
+                true,
+                ex.getMessage(),
+                null
+        );
         return new ResponseEntity<>(response, HttpStatus.CONFLICT);
     }
 
@@ -50,7 +62,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EmptyIterableException.class)
     public ResponseEntity<ApiResponseDTO<Object>> handleEmptyIterableExceptions(EmptyIterableException ex) {
         ApiResponseDTO<Object> response = new ApiResponseDTO<>(
-                404, true, ex.getMessage(), new ArrayList<>());
+                404,
+                true,
+                ex.getMessage(),
+                new ArrayList<>()
+        );
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
@@ -58,7 +74,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ApiResponseDTO<Object>> handleResourceNotFoundExceptions(ResourceNotFoundException ex) {
         ApiResponseDTO<Object> response = new ApiResponseDTO<>(
-                404, true, ex.getMessage(), null);
+                404,
+                true, 
+                ex.getMessage(),
+                null
+        );
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 }

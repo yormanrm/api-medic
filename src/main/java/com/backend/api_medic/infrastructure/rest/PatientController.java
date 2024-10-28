@@ -20,25 +20,44 @@ public class PatientController {
 
     @PostMapping("/register")
     public ResponseEntity<ApiResponseDTO<Object>> register(@Valid @RequestBody Patient patient) {
-        ApiResponseDTO<Object> response = new ApiResponseDTO<>(201, false, "Created patient", patientService.save(patient));
+        ApiResponseDTO<Object> response = new ApiResponseDTO<>(
+                201,
+                false,
+                "Created patient",
+                patientService.save(patient)
+        );
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping("/get-all")
     public ResponseEntity<ApiResponseDTO<Object>> getAll() {
-        ApiResponseDTO<Object> response = new ApiResponseDTO<>(200, false, "Patients found", patientService.findAll());
+        ApiResponseDTO<Object> response = new ApiResponseDTO<>(
+                200,
+                false,
+                "Patients found",
+                patientService.findAll()
+        );
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("get-byID")
     public ResponseEntity<ApiResponseDTO<Object>> getByID(@RequestParam Integer id) {
-        ApiResponseDTO<Object> response = new ApiResponseDTO<>(200, false, "Patient found with ID equals to " + id, patientService.findById(id));
+        ApiResponseDTO<Object> response = new ApiResponseDTO<>(
+                200,
+                false,
+                "Patient found with ID equals to " + id,
+                patientService.findById(id));
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("get-byFullName")
     public ResponseEntity<ApiResponseDTO<Object>> searchByFullName(@RequestBody FullNameRequestDTO fullNameRequestDTO) {
-        ApiResponseDTO<Object> response = new ApiResponseDTO<>(200, false, "Patients found with full name similar to " + fullNameRequestDTO.getFullName(), patientService.searchByFullName(fullNameRequestDTO.getFullName()));
+        ApiResponseDTO<Object> response = new ApiResponseDTO<>(
+                200,
+                false,
+                "Patients found with full name similar to " + fullNameRequestDTO.getFullName(),
+                patientService.searchByFullName(fullNameRequestDTO.getFullName())
+        );
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
