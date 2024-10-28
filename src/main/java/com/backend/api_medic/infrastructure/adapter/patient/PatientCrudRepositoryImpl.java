@@ -5,6 +5,7 @@ import com.backend.api_medic.domain.ports.IPatientRepository;
 import com.backend.api_medic.infrastructure.entity.PatientEntity;
 import com.backend.api_medic.infrastructure.exception.EmptyIterableException;
 import com.backend.api_medic.infrastructure.exception.PatientAlreadyExistsException;
+import com.backend.api_medic.infrastructure.exception.ResourceNotFoundException;
 import com.backend.api_medic.infrastructure.mapper.PatientMapper;
 import com.backend.api_medic.infrastructure.utils.IterableUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +44,14 @@ public class PatientCrudRepositoryImpl implements IPatientRepository {
 
     @Override
     public Patient findById(Integer id) {
-        return null;
+        Optional<PatientEntity> patient = iPatientCrudRepository.findById(id);
+        if (patient.isPresent()) {
+            return patientMapper.toPatient(patient.get());
+        } else {
+            throw new ResourceNotFoundException("Patient with ID " + id + " not found");
+        }
     }
+
 
     @Override
     public Iterable<Patient> findByName(String name) {

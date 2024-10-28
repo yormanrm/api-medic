@@ -3,6 +3,7 @@ package com.backend.api_medic.infrastructure.handler;
 import com.backend.api_medic.infrastructure.dto.ApiResponseDTO;
 import com.backend.api_medic.infrastructure.exception.EmptyIterableException;
 import com.backend.api_medic.infrastructure.exception.PatientAlreadyExistsException;
+import com.backend.api_medic.infrastructure.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -50,6 +51,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponseDTO<Object>> handleEmptyIterableExceptions(EmptyIterableException ex) {
         ApiResponseDTO<Object> response = new ApiResponseDTO<>(
                 404, true, ex.getMessage(), new ArrayList<>());
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    // Manejo de recursos no encontrados
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ApiResponseDTO<Object>> handleResourceNotFoundExceptions(ResourceNotFoundException ex) {
+        ApiResponseDTO<Object> response = new ApiResponseDTO<>(
+                404, true, ex.getMessage(), null);
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 }

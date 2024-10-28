@@ -25,7 +25,13 @@ public class PatientController {
 
     @GetMapping("/get-all")
     public ResponseEntity<ApiResponseDTO<Object>> getAll() {
-        ApiResponseDTO<Object> response = new ApiResponseDTO<>(200, false, "Registered patients", patientService.findAll());
+        ApiResponseDTO<Object> response = new ApiResponseDTO<>(200, false, "Patients found", patientService.findAll());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("get-byID")
+    public ResponseEntity<ApiResponseDTO<Object>> getByID(@RequestParam Integer id) {
+        ApiResponseDTO<Object> response = new ApiResponseDTO<>(200, false, "Patient found", patientService.findById(id));
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
