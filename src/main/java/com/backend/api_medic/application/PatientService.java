@@ -22,7 +22,7 @@ public class PatientService {
         return iPatientRepository.findById(id);
     }
 
-    public Iterable<Patient> findByName(String name) {
-        return iPatientRepository.findByName(name);
+    public Iterable<Patient> searchByFullName(String name) {
+        return iPatientRepository.searchByFullName(name);
     }
 }

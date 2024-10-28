@@ -1,6 +1,6 @@
 package com.backend.api_medic.infrastructure.handler;
 
-import com.backend.api_medic.infrastructure.dto.ApiResponseDTO;
+import com.backend.api_medic.infrastructure.dto.response.ApiResponseDTO;
 import com.backend.api_medic.infrastructure.exception.EmptyIterableException;
 import com.backend.api_medic.infrastructure.exception.PatientAlreadyExistsException;
 import com.backend.api_medic.infrastructure.exception.ResourceNotFoundException;

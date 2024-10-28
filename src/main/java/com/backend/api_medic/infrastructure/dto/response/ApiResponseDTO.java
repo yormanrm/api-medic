@@ -1,4 +1,4 @@
-package com.backend.api_medic.infrastructure.dto;
+package com.backend.api_medic.infrastructure.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -11,4 +11,7 @@ public interface IPatientCrudRepository extends CrudRepository<PatientEntity, In
 
     Optional<PatientEntity> findByFullName(String name);
 
+    @Query("SELECT p FROM PatientEntity p WHERE LOWER(p.fullName) LIKE LOWER(CONCAT('%', :fullName, '%'))")
+    Iterable<PatientEntity> searchByFullName(@Param("fullName") String fullName);
+
 }

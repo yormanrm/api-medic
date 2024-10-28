@@ -2,7 +2,8 @@ package com.backend.api_medic.infrastructure.rest;
 
 import com.backend.api_medic.application.PatientService;
 import com.backend.api_medic.domain.model.Patient;
-import com.backend.api_medic.infrastructure.dto.ApiResponseDTO;
+import com.backend.api_medic.infrastructure.dto.request.FullNameRequestDTO;
+import com.backend.api_medic.infrastructure.dto.response.ApiResponseDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,13 @@ public class PatientController {
 
     @GetMapping("get-byID")
     public ResponseEntity<ApiResponseDTO<Object>> getByID(@RequestParam Integer id) {
-        ApiResponseDTO<Object> response = new ApiResponseDTO<>(200, false, "Patient found", patientService.findById(id));
+        ApiResponseDTO<Object> response = new ApiResponseDTO<>(200, false, "Patient found with ID equals to " + id, patientService.findById(id));
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("get-byFullName")
+    public ResponseEntity<ApiResponseDTO<Object>> searchByFullName(@RequestBody FullNameRequestDTO fullNameRequestDTO) {
+        ApiResponseDTO<Object> response = new ApiResponseDTO<>(200, false, "Patients found with full name similar to " + fullNameRequestDTO.getFullName(), patientService.searchByFullName(fullNameRequestDTO.getFullName()));
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

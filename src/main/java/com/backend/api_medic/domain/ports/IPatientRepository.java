@@ -9,6 +9,6 @@ public interface IPatientRepository {
 
     Patient findById(Integer id);
 
-    Iterable<Patient> findByName(String name);
+    Iterable<Patient> searchByFullName(String name);
 //    void deleteById(Integer id);
 }

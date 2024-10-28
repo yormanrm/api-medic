@@ -52,10 +52,14 @@ public class PatientCrudRepositoryImpl implements IPatientRepository {
         }
     }
 
-
     @Override
-    public Iterable<Patient> findByName(String name) {
-        return null;
+    public Iterable<Patient> searchByFullName(String fullName) {
+        Iterable<Patient> patients = patientMapper.toPatients(iPatientCrudRepository.searchByFullName(fullName));
+        if (IterableUtils.isEmpty(patients)) {
+            throw new EmptyIterableException("There are no registered patients with a full name similar to " + fullName);
+        } else {
+            return patients;
+        }
     }
 
 }
