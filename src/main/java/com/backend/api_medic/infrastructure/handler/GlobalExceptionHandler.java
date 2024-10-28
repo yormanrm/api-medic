@@ -1,7 +1,7 @@
 package com.backend.api_medic.infrastructure.handler;
 
 import com.backend.api_medic.infrastructure.dto.ApiResponseDTO;
-import com.backend.api_medic.infrastructure.exception.CustomException;
+import com.backend.api_medic.infrastructure.exception.EmptyIterableException;
 import com.backend.api_medic.infrastructure.exception.PatientAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,14 +23,6 @@ public class GlobalExceptionHandler {
         ApiResponseDTO<Object> response = new ApiResponseDTO<>(
                 500, true, "Unexpected error: " + ex.getMessage(), null);
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    // Manejo de exceptions personalizadas
-    @ExceptionHandler(CustomException.class)
-    public ResponseEntity<ApiResponseDTO<Object>> handleCustomExceptions(CustomException ex) {
-        ApiResponseDTO<Object> response = new ApiResponseDTO<>(
-                -1, true, "Unexpected error: " + ex.getMessage(), null);
-        return new ResponseEntity<>(response, HttpStatus.NOT_ACCEPTABLE);
     }
 
     // Manejo de errores de validación
@@ -48,8 +41,15 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(PatientAlreadyExistsException.class)
     public ResponseEntity<ApiResponseDTO<Object>> handlePatientAlreadyExistsExceptions(PatientAlreadyExistsException ex) {
         ApiResponseDTO<Object> response = new ApiResponseDTO<>(
-                409, true, "Unexpected error: " + ex.getMessage(), null);
+                409, true, ex.getMessage(), null);
         return new ResponseEntity<>(response, HttpStatus.CONFLICT);
     }
 
+    // Manejo de iterables vacios
+    @ExceptionHandler(EmptyIterableException.class)
+    public ResponseEntity<ApiResponseDTO<Object>> handleEmptyIterableExceptions(EmptyIterableException ex) {
+        ApiResponseDTO<Object> response = new ApiResponseDTO<>(
+                404, true, ex.getMessage(), new ArrayList<>());
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
 }

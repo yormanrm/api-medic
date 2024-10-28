@@ -19,9 +19,14 @@ public class PatientController {
 
     @PostMapping("/register")
     public ResponseEntity<ApiResponseDTO<Object>> register(@Valid @RequestBody Patient patient) {
-        Patient savedPatient = patientService.save(patient);
-        ApiResponseDTO<Object> response = new ApiResponseDTO<>(201, false, "Created patient", savedPatient);
+        ApiResponseDTO<Object> response = new ApiResponseDTO<>(201, false, "Created patient", patientService.save(patient));
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/get-all")
+    public ResponseEntity<ApiResponseDTO<Object>> getAll() {
+        ApiResponseDTO<Object> response = new ApiResponseDTO<>(200, false, "Registered patients", patientService.findAll());
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 }

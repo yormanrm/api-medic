@@ -3,8 +3,10 @@ package com.backend.api_medic.infrastructure.adapter.patient;
 import com.backend.api_medic.domain.model.Patient;
 import com.backend.api_medic.domain.ports.IPatientRepository;
 import com.backend.api_medic.infrastructure.entity.PatientEntity;
+import com.backend.api_medic.infrastructure.exception.EmptyIterableException;
 import com.backend.api_medic.infrastructure.exception.PatientAlreadyExistsException;
 import com.backend.api_medic.infrastructure.mapper.PatientMapper;
+import com.backend.api_medic.infrastructure.utils.IterableUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -31,7 +33,12 @@ public class PatientCrudRepositoryImpl implements IPatientRepository {
 
     @Override
     public Iterable<Patient> findAll() {
-        return null;
+        Iterable<Patient> patients = patientMapper.toPatients(iPatientCrudRepository.findAll());
+        if (IterableUtils.isEmpty(patients)) {
+            throw new EmptyIterableException("There are no registered patients");
+        } else {
+            return patients;
+        }
     }
 
     @Override
