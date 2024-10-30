@@ -14,6 +14,7 @@ public interface DoctorMapper {
     @Mappings({
             @Mapping(source = "id", target = "id"),
             @Mapping(source = "fullName", target = "fullName"),
+            @Mapping(source = "birthday", target = "birthday"),
             @Mapping(source = "specialty", target = "specialty"),
             @Mapping(source = "professionalLicense", target = "professionalLicense"),
             @Mapping(source = "telephone", target = "telephone"),

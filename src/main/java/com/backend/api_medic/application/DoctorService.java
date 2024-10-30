@@ -22,7 +22,7 @@ public class DoctorService {
         return iDoctorRepository.findById(id);
     }
 
-    public Iterable<Doctor> findBySomeTextfield(String textfield) {
-        return iDoctorRepository.findBySomeTextfield(textfield);
+    public Iterable<Doctor> searchBySomeTextfield(String textfield) {
+        return iDoctorRepository.searchBySomeTextfield(textfield);
     }
 }

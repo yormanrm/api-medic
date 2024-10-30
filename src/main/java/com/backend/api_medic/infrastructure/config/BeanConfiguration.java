@@ -17,19 +17,19 @@ public class BeanConfiguration {
     public PatientService patientService(IPatientRepository iPatientRepository) {
         return new PatientService(iPatientRepository);
     }
-//
-//    @Bean
-//    public DoctorService doctorService(IDoctorRepository iDoctorRepository) {
-//        return new DoctorService(iDoctorRepository);
-//    }
-//
-//    @Bean
-//    public AppointmentService appointmentService(IAppointmentRepository iAppointmentRepository) {
-//        return new AppointmentService(iAppointmentRepository);
-//    }
-//
-//    @Bean
-//    public AppointmentDetailsService appointmentDetailsService(IAppointmentDetailsRepository iAppointmentDetailsRepository) {
-//        return new AppointmentDetailsService(iAppointmentDetailsRepository);
-//    }
+
+    @Bean
+    public DoctorService doctorService(IDoctorRepository iDoctorRepository) {
+        return new DoctorService(iDoctorRepository);
+    }
+
+    @Bean
+    public AppointmentService appointmentService(IAppointmentRepository iAppointmentRepository) {
+        return new AppointmentService(iAppointmentRepository);
+    }
+
+    @Bean
+    public AppointmentDetailsService appointmentDetailsService(IAppointmentDetailsRepository iAppointmentDetailsRepository) {
+        return new AppointmentDetailsService(iAppointmentDetailsRepository);
+    }
 }

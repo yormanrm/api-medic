@@ -19,6 +19,7 @@ public class DoctorEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String fullName;
+    private LocalDateTime birthday;
     private String specialty;
     private String professionalLicense;
     private String telephone;

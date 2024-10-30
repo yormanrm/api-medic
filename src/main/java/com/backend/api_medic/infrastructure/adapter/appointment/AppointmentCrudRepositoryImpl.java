@@ -2,7 +2,9 @@ package com.backend.api_medic.infrastructure.adapter.appointment;
 
 import com.backend.api_medic.domain.model.Appointment;
 import com.backend.api_medic.domain.ports.IAppointmentRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class AppointmentCrudRepositoryImpl implements IAppointmentRepository {
     @Override
     public Appointment save(Appointment appointment) {

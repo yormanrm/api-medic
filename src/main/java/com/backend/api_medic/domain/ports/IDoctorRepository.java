@@ -9,6 +9,6 @@ public interface IDoctorRepository {
 
     Doctor findById(Integer id);
 
-    Iterable<Doctor> findBySomeTextfield(String textfield);
+    Iterable<Doctor> searchBySomeTextfield(String textfield);
 //    void deleteById(Integer id);
 }

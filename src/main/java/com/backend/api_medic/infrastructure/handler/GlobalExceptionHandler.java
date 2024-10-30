@@ -2,7 +2,7 @@ package com.backend.api_medic.infrastructure.handler;
 
 import com.backend.api_medic.infrastructure.dto.response.ApiResponseDTO;
 import com.backend.api_medic.infrastructure.exception.EmptyIterableException;
-import com.backend.api_medic.infrastructure.exception.PatientAlreadyExistsException;
+import com.backend.api_medic.infrastructure.exception.ResourceAlreadyExistsException;
 import com.backend.api_medic.infrastructure.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,9 +46,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    // Manejo de pacientes duplicados
-    @ExceptionHandler(PatientAlreadyExistsException.class)
-    public ResponseEntity<ApiResponseDTO<Object>> handlePatientAlreadyExistsExceptions(PatientAlreadyExistsException ex) {
+    // Manejo de recursos duplicados
+    @ExceptionHandler(ResourceAlreadyExistsException.class)
+    public ResponseEntity<ApiResponseDTO<Object>> handleResourceAlreadyExistsExceptions(ResourceAlreadyExistsException ex) {
         ApiResponseDTO<Object> response = new ApiResponseDTO<>(
                 409,
                 true,
