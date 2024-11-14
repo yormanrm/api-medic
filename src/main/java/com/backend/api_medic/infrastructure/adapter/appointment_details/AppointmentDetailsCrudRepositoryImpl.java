@@ -6,8 +6,13 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class AppointmentDetailsCrudRepositoryImpl implements IAppointmentDetailsRepository {
-    @Override
-    public AppointmentDetails save(AppointmentDetails appointmentDetails) {
-        return null;
-    }
+//    @Override
+//    public AppointmentDetails save(AppointmentDetails appointmentDetails) {
+//        return null;
+//    }
+//
+//    @Override
+//    public AppointmentDetails findById(Integer id) {
+//        return null;
+//    }
 }

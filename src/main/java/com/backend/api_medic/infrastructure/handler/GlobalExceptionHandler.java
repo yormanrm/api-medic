@@ -1,6 +1,7 @@
 package com.backend.api_medic.infrastructure.handler;
 
 import com.backend.api_medic.infrastructure.dto.response.ApiResponseDTO;
+import com.backend.api_medic.infrastructure.exception.BusinessException;
 import com.backend.api_medic.infrastructure.exception.EmptyIterableException;
 import com.backend.api_medic.infrastructure.exception.ResourceAlreadyExistsException;
 import com.backend.api_medic.infrastructure.exception.ResourceNotFoundException;
@@ -81,4 +82,17 @@ public class GlobalExceptionHandler {
         );
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
+
+    // Manejo de reglas de negocio
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<ApiResponseDTO<Object>> handleBusinessExceptions(BusinessException ex) {
+        ApiResponseDTO<Object> response = new ApiResponseDTO<>(
+                409,
+                true,
+                ex.getMessage(),
+                null
+        );
+        return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+    }
+
 }

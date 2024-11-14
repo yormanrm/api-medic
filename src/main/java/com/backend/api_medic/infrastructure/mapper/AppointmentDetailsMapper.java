@@ -16,7 +16,9 @@ public interface AppointmentDetailsMapper {
             @Mapping(source = "appointmentEntity.id", target = "appointmentId"),
             @Mapping(source = "diagnosis", target = "diagnosis"),
             @Mapping(source = "treatment", target = "treatment"),
-            @Mapping(source = "notes", target = "notes")
+            @Mapping(source = "notes", target = "notes"),
+            @Mapping(source = "dateCreated", target = "dateCreated"),
+            @Mapping(source = "dateUpdated", target = "dateUpdated")
     })
     AppointmentDetails toAppointmentDetails(AppointmentDetailsEntity appointmentDetailsEntity);
 
