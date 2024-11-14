@@ -1,8 +1,6 @@
 package com.backend.api_medic.infrastructure.adapter.appointment;
 
 import com.backend.api_medic.domain.model.Appointment;
-import com.backend.api_medic.domain.model.AppointmentDetails;
-import com.backend.api_medic.domain.ports.IAppointmentDetailsRepository;
 import com.backend.api_medic.domain.ports.IAppointmentRepository;
 import com.backend.api_medic.infrastructure.adapter.appointment_details.IAppointmentDetailsCrudRepository;
 import com.backend.api_medic.infrastructure.dto.response.AppointmentResponseDTO;
@@ -10,7 +8,6 @@ import com.backend.api_medic.infrastructure.entity.AppointmentDetailsEntity;
 import com.backend.api_medic.infrastructure.entity.AppointmentEntity;
 import com.backend.api_medic.infrastructure.entity.DoctorEntity;
 import com.backend.api_medic.infrastructure.entity.PatientEntity;
-import com.backend.api_medic.infrastructure.exception.BusinessException;
 import com.backend.api_medic.infrastructure.exception.EmptyIterableException;
 import com.backend.api_medic.infrastructure.exception.ResourceNotFoundException;
 import com.backend.api_medic.infrastructure.mapper.AppointmentMapper;

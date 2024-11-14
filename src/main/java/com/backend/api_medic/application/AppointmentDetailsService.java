@@ -10,11 +10,11 @@ public class AppointmentDetailsService {
         this.iAppointmentDetailsRepository = iAppointmentDetailsRepository;
     }
 
-//    public AppointmentDetails save(AppointmentDetails appointmentDetails) {
-//        return iAppointmentDetailsRepository.save(appointmentDetails);
-//    }
-//
-//    public AppointmentDetails findById(Integer id) {
-//        return iAppointmentDetailsRepository.findById(id);
-//    }
+    public AppointmentDetails findByAppointmentId(Integer id) {
+        return iAppointmentDetailsRepository.findByAppointmentId(id);
+    }
+
+    public AppointmentDetails updateAppointmentDetails(AppointmentDetails appointmentDetails){
+        return iAppointmentDetailsRepository.updateAppointmentDetails(appointmentDetails);
+    }
 }
