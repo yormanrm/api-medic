@@ -9,6 +9,7 @@ import com.backend.api_medic.infrastructure.entity.AppointmentDetailsEntity;
 import com.backend.api_medic.infrastructure.entity.AppointmentEntity;
 import com.backend.api_medic.infrastructure.entity.DoctorEntity;
 import com.backend.api_medic.infrastructure.entity.PatientEntity;
+import com.backend.api_medic.infrastructure.exception.BusinessException;
 import com.backend.api_medic.infrastructure.exception.EmptyIterableException;
 import com.backend.api_medic.infrastructure.exception.ResourceNotFoundException;
 import com.backend.api_medic.infrastructure.mapper.AppointmentMapper;
@@ -16,6 +17,7 @@ import com.backend.api_medic.infrastructure.service.BusinessService;
 import com.backend.api_medic.infrastructure.utils.IterableUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -94,7 +96,15 @@ public class AppointmentCrudRepositoryImpl implements IAppointmentRepository {
     }
 
     @Override
+    @Transactional
     public void updateStatusById(Integer id, String status) {
-
+        Optional<AppointmentEntity> optionalAppointmentEntity = iAppointmentCrudRepository.findById(id);
+        if(optionalAppointmentEntity.isPresent()){
+            Appointment appointment = appointmentMapper.toAppointment(optionalAppointmentEntity.get());
+            appointment.setStatus(status);
+            iAppointmentCrudRepository.save(appointmentMapper.toAppointmentEntity(appointment));
+        } else {
+            throw new ResourceNotFoundException("Appointment with ID " + id + " not found");
+        }
     }
 }

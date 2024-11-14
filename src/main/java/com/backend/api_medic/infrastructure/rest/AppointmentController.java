@@ -2,6 +2,7 @@ package com.backend.api_medic.infrastructure.rest;
 
 import com.backend.api_medic.application.AppointmentService;
 import com.backend.api_medic.domain.model.Appointment;
+import com.backend.api_medic.infrastructure.dto.request.UpdateStatusDTO;
 import com.backend.api_medic.infrastructure.dto.response.ApiResponseDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,18 @@ public class AppointmentController {
                 false,
                 "Appointment found with Doctor ID equals to " + id,
                 appointmentService.findByDoctorId(id)
+        );
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping("/update-statusByID")
+    public ResponseEntity<ApiResponseDTO<Object>> updateStatusByID(@Valid @RequestBody UpdateStatusDTO updateStatusDTO) {
+        appointmentService.updateStatusById(updateStatusDTO.getId(), updateStatusDTO.getStatus());
+        ApiResponseDTO<Object> response = new ApiResponseDTO<>(
+                200,
+                false,
+                "Appointment status with ID equals to " + updateStatusDTO.getId() +" updated to " + updateStatusDTO.getStatus(),
+                null
         );
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
