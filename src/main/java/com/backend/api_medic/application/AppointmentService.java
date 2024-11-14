@@ -2,6 +2,7 @@ package com.backend.api_medic.application;
 
 import com.backend.api_medic.domain.model.Appointment;
 import com.backend.api_medic.domain.ports.IAppointmentRepository;
+import com.backend.api_medic.infrastructure.dto.response.AppointmentResponseDTO;
 
 public class AppointmentService {
     private final IAppointmentRepository iAppointmentRepository;
@@ -14,19 +15,19 @@ public class AppointmentService {
         return iAppointmentRepository.save(appointment);
     }
 
-    public Iterable<Appointment> findAll() {
+    public Iterable<AppointmentResponseDTO> findAll() {
         return iAppointmentRepository.findAll();
     }
 
-    public Appointment findById(Integer id) {
+    public AppointmentResponseDTO findById(Integer id) {
         return iAppointmentRepository.findById(id);
     }
 
-    public Iterable<Appointment> findByPatientId(Integer id) {
+    public Iterable<AppointmentResponseDTO> findByPatientId(Integer id) {
         return iAppointmentRepository.findByPatientId(id);
     }
 
-    public Iterable<Appointment> findByDoctorId(Integer id) {
+    public Iterable<AppointmentResponseDTO> findByDoctorId(Integer id) {
         return iAppointmentRepository.findByDoctorId(id);
     }
 
