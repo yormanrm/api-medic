@@ -12,7 +12,8 @@ public interface CredentialMapper {
 
     @Mappings({
             @Mapping(source = "id", target = "id"),
-            @Mapping(source = "email", target = "email"),
+            @Mapping(source = "employeeId", target = "employeeId"),
+            @Mapping(source = "username", target = "username"),
             @Mapping(source = "password", target = "password"),
             @Mapping(source = "role", target = "role"),
             @Mapping(source = "dateCreated", target = "dateCreated"),

@@ -18,7 +18,8 @@ public class CredentialEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String email;
+    private Integer employeeId;
+    private String username;
     private String password;
     private String role;
 

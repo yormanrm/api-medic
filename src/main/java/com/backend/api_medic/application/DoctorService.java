@@ -2,6 +2,7 @@ package com.backend.api_medic.application;
 
 import com.backend.api_medic.domain.model.Doctor;
 import com.backend.api_medic.domain.ports.IDoctorRepository;
+import com.backend.api_medic.infrastructure.dto.response.NewEmployeeDTO;
 
 public class DoctorService {
     private final IDoctorRepository iDoctorRepository;
@@ -10,7 +11,7 @@ public class DoctorService {
         this.iDoctorRepository = iDoctorRepository;
     }
 
-    public Doctor save(Doctor doctor) {
+    public NewEmployeeDTO save(Doctor doctor) {
         return iDoctorRepository.save(doctor);
     }
 

@@ -1,9 +1,6 @@
 package com.backend.api_medic.domain.model;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,19 +9,27 @@ import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class Credential {
     private Integer id;
 
-    @NotBlank(message = "Email is required")
-    @Email(message = "Email wrong structure")
-    private String email;
+    @NotNull(message = "Employee ID is required")
+    private Integer employeeId;
+
+    @NotBlank(message = "Username is required")
+    @Pattern(
+            regexp = "^[a-zA-Z0-9.]+$",
+            message = "Username can only contain letters, numbers and periods (.)"
+    )
+    private String username;
 
     @NotBlank(message = "Password is required")
+    @Pattern(
+            regexp = "^[a-zA-Z0-9_.-]+$",
+            message = "Password can only contain letters, numbers, underscores (_), hyphens (-), and periods (.)"
+    )
     @Size(
             min = 8,
-            max = 16,
-            message = "Password must be between 8 and 16 characters"
+            message = "Password must have at least 8 characters"
     )
     private String password;
 

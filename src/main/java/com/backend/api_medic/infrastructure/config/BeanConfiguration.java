@@ -31,4 +31,5 @@ public class BeanConfiguration {
     public CredentialService credentialService(ICredentialRepository iCredentialRepository) {
         return new CredentialService(iCredentialRepository);
     }
+
 }

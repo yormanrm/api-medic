@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 public interface ICredentialCrudRepository extends CrudRepository<CredentialEntity, Integer> {
-    Optional<CredentialEntity> findByEmail(String email);
+    Optional<CredentialEntity> findByUsername(String username);
 }

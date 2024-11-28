@@ -11,8 +11,8 @@ public class CredentialService {
         this.iCredentialRepository = iCredentilaRepository;
     }
 
-    public Credential findByEmail(String email, String password) {
-        return iCredentialRepository.findByEmail(email, password);
+    public Credential findByUsername(String username) {
+        return iCredentialRepository.findByUsername(username);
     }
 
     public void updateCredential(Credential credential) {

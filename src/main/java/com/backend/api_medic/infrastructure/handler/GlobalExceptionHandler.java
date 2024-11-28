@@ -1,10 +1,7 @@
 package com.backend.api_medic.infrastructure.handler;
 
 import com.backend.api_medic.infrastructure.dto.response.ApiResponseDTO;
-import com.backend.api_medic.infrastructure.exception.BusinessException;
-import com.backend.api_medic.infrastructure.exception.EmptyIterableException;
-import com.backend.api_medic.infrastructure.exception.ResourceAlreadyExistsException;
-import com.backend.api_medic.infrastructure.exception.ResourceNotFoundException;
+import com.backend.api_medic.infrastructure.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -93,6 +90,18 @@ public class GlobalExceptionHandler {
                 null
         );
         return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+    }
+
+    // Manejo de credenciales
+    @ExceptionHandler(CredentialException.class)
+    public ResponseEntity<ApiResponseDTO<Object>> handleCredentialExceptions(CredentialException ex) {
+        ApiResponseDTO<Object> response = new ApiResponseDTO<>(
+                401,
+                true,
+                ex.getMessage(),
+                null
+        );
+        return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
     }
 
 }
