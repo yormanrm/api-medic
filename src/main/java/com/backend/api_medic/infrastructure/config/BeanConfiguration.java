@@ -28,6 +28,11 @@ public class BeanConfiguration {
     }
 
     @Bean
+    public EmployeeService employeeService(IEmployeeRepository iEmployeeRepository) {
+        return new EmployeeService(iEmployeeRepository);
+    }
+
+    @Bean
     public CredentialService credentialService(ICredentialRepository iCredentialRepository) {
         return new CredentialService(iCredentialRepository);
     }

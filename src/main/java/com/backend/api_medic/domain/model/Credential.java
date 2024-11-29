@@ -35,8 +35,8 @@ public class Credential {
 
     @NotBlank(message = "Role is required")
     @Pattern(
-            regexp = "ADMIN|DOCTOR|PHARMACY",
-            message = "Role must be ADMIN, DOCTOR, or PHARMACY."
+            regexp = "ADMIN|DOCTOR|PHARMACIST",
+            message = "Role must be ADMIN, DOCTOR, or PHARMACIST."
     )
     private String role;
     private LocalDateTime dateCreated;

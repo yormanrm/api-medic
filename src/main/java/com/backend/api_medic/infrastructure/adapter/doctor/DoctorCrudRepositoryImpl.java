@@ -5,7 +5,6 @@ import com.backend.api_medic.domain.model.Doctor;
 import com.backend.api_medic.domain.ports.IDoctorRepository;
 import com.backend.api_medic.infrastructure.adapter.credential.ICredentialCrudRepository;
 import com.backend.api_medic.infrastructure.dto.response.NewEmployeeDTO;
-import com.backend.api_medic.infrastructure.entity.CredentialEntity;
 import com.backend.api_medic.infrastructure.entity.DoctorEntity;
 import com.backend.api_medic.infrastructure.exception.EmptyIterableException;
 import com.backend.api_medic.infrastructure.exception.ResourceAlreadyExistsException;
