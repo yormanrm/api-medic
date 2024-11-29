@@ -2,6 +2,8 @@ package com.backend.api_medic.infrastructure.config;
 
 import com.backend.api_medic.application.CredentialService;
 import com.backend.api_medic.domain.model.Credential;
+import com.backend.api_medic.infrastructure.handler.CustomAccessDeniedHandler;
+import com.backend.api_medic.infrastructure.handler.CustomAuthenticationEntryPoint;
 import com.backend.api_medic.infrastructure.jwt.JwtAuthenticationFilter;
 import com.backend.api_medic.infrastructure.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,16 +39,33 @@ public class SecurityConfig {
     @Autowired
     private CredentialService credentialService;
 
+    @Autowired
+    private CustomAccessDeniedHandler customAccessDeniedHandler;
+
+    @Autowired
+    private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/appointment/details/update").hasRole("DOCTOR")
-                        .requestMatchers("/api/v1/auth/**").permitAll()
-                        .requestMatchers("/api/v1/employee/**").permitAll()
+                        .requestMatchers("/api/v1/doctor/register").hasRole("ADMIN")
+                        .requestMatchers("/api/v1/employee/register").hasRole("ADMIN")
+                        .requestMatchers("/api/v1/appointment/register").hasAnyRole("ADMIN","PHARMACIST")
+                        .requestMatchers("/api/v1/doctor/get-all").hasAnyRole("ADMIN","PHARMACIST")
+                        .requestMatchers("/api/v1/doctor/get-byID").hasAnyRole("ADMIN","PHARMACIST")
+                        .requestMatchers("/api/v1/doctor/search").hasAnyRole("ADMIN","PHARMACIST")
+                        .requestMatchers("/api/v1/patient/register").hasAnyRole("ADMIN","PHARMACIST")
+                        .requestMatchers("/api/v1/patient/get-all").hasAnyRole("ADMIN","PHARMACIST")
+                        .requestMatchers("/api/v1/appointment/details/update").hasRole("DOCTOR")
+                        .requestMatchers("/api/v1/auth/login").permitAll()
                         .anyRequest().authenticated() // Cualquier otra solicitud requiere autenticación
+                )
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(customAuthenticationEntryPoint)
+                        .accessDeniedHandler(customAccessDeniedHandler)
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
