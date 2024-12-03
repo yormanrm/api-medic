@@ -5,7 +5,6 @@ import com.backend.api_medic.domain.model.Credential;
 import com.backend.api_medic.infrastructure.dto.request.CredentialDTO;
 import com.backend.api_medic.infrastructure.dto.response.ApiResponseDTO;
 import com.backend.api_medic.infrastructure.exception.CredentialException;
-import com.backend.api_medic.infrastructure.exception.ResourceNotFoundException;
 import com.backend.api_medic.infrastructure.jwt.JwtTokenProvider;
 import com.nimbusds.jose.JOSEException;
 import jakarta.validation.Valid;
@@ -41,9 +40,11 @@ public class AuthController {
                 Map<String, Object> generatedToken = new HashMap<>();
                 generatedToken.put("accessToken", token);
                 generatedToken.put("tokenType", "Bearer");
+                generatedToken.put("userName", credential.getUsername());
+                generatedToken.put("role", credential.getRole());
                 ApiResponseDTO<Object> response = new ApiResponseDTO<>(200,
                         false,
-                        "User authenticated.",
+                        "User authenticated",
                         generatedToken
                 );
                 return new ResponseEntity<>(response, HttpStatus.OK);
@@ -67,7 +68,7 @@ public class AuthController {
         ApiResponseDTO<Object> response = new ApiResponseDTO<>(
                 200,
                 false,
-                "Credential updated.",
+                "Credential updated",
                 null
         );
         return new ResponseEntity<>(response, HttpStatus.OK);

@@ -29,7 +29,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         ApiResponseDTO<Object> apiResponse = new ApiResponseDTO<>();
         apiResponse.setCode(HttpServletResponse.SC_UNAUTHORIZED);
         apiResponse.setError(true);
-        apiResponse.setMessage("User not authenticated: Please provide valid credentials.");
+        apiResponse.setMessage("User not authenticated");
         apiResponse.setData(null);
 
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
