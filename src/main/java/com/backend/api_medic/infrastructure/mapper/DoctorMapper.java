@@ -18,7 +18,8 @@ public interface DoctorMapper {
             @Mapping(source = "telephone", target = "telephone"),
             @Mapping(source = "email", target = "email"),
             @Mapping(source = "dateCreated", target = "dateCreated"),
-            @Mapping(source = "dateUpdated", target = "dateUpdated")
+            @Mapping(source = "dateUpdated", target = "dateUpdated"),
+            @Mapping(source = "logicallyRemoved", target = "logicallyRemoved")
     })
     Doctor toDoctor(DoctorEntity doctorEntity);
 

@@ -57,7 +57,8 @@ public class DoctorCrudRepositoryImpl implements IDoctorRepository {
                         bCryptPasswordEncoder.encode(generatedPassword),
                         "DOCTOR",
                         null,
-                        null);
+                        null,
+                        false);
                iCredentialCrudRepository.save(credentialMapper.toCredentialEntity(credential));
                NewEmployeeDTO newEmployeeDTO = new NewEmployeeDTO(
                        savedDoctor.getFullName(),

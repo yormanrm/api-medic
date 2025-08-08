@@ -64,4 +64,6 @@ public class Employee {
     private LocalDateTime dateCreated;
 
     private LocalDateTime dateUpdated;
+
+    private boolean logicallyRemoved;
 }

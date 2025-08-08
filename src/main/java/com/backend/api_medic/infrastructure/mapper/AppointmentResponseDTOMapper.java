@@ -19,6 +19,7 @@ public interface AppointmentResponseDTOMapper {
             @Mapping(source = "appointmentDate", target = "appointmentDate"),
             @Mapping(source = "dateCreated", target = "dateCreated"),
             @Mapping(source = "dateUpdated", target = "dateUpdated"),
+            @Mapping(source = "logicallyRemoved", target = "logicallyRemoved")
     })
     AppointmentResponseDTO toAppointmentResponseDTO(AppointmentEntity appointmentEntity);
 

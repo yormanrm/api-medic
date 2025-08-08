@@ -18,7 +18,7 @@ public interface NewEmployeeDTOMapper {
             @Mapping(source = "status", target = "status"),
             @Mapping(source = "appointmentDate", target = "appointmentDate"),
             @Mapping(source = "dateCreated", target = "dateCreated"),
-            @Mapping(source = "dateUpdated", target = "dateUpdated"),
+            @Mapping(source = "dateUpdated", target = "dateUpdated")
     })
     AppointmentResponseDTO toAppointmentResponseDTO(AppointmentEntity appointmentEntity);
 

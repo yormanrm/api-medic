@@ -18,6 +18,7 @@ public interface AppointmentMapper {
             @Mapping(source = "appointmentDate", target = "appointmentDate"),
             @Mapping(source = "dateCreated", target = "dateCreated"),
             @Mapping(source = "dateUpdated", target = "dateUpdated"),
+            @Mapping(source = "logicallyRemoved", target = "logicallyRemoved")
     })
     Appointment toAppointment(AppointmentEntity appointmentEntity);
 

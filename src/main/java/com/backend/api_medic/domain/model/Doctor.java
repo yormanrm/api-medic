@@ -68,4 +68,6 @@ public class Doctor {
     private LocalDateTime dateCreated;
 
     private LocalDateTime dateUpdated;
+
+    private boolean logicallyRemoved;
 }

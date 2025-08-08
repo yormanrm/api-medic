@@ -20,4 +20,5 @@ public class AppointmentResponseDTO {
     private LocalDateTime appointmentDate;
     private LocalDateTime dateCreated;
     private LocalDateTime dateUpdated;
+    private boolean logicallyRemoved;
 }

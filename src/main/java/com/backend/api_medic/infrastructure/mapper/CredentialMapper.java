@@ -17,7 +17,8 @@ public interface CredentialMapper {
             @Mapping(source = "password", target = "password"),
             @Mapping(source = "role", target = "role"),
             @Mapping(source = "dateCreated", target = "dateCreated"),
-            @Mapping(source = "dateUpdated", target = "dateUpdated")
+            @Mapping(source = "dateUpdated", target = "dateUpdated"),
+            @Mapping(source = "logicallyRemoved", target = "logicallyRemoved")
     })
 
     Credential toCredential(CredentialEntity credentialEntity);

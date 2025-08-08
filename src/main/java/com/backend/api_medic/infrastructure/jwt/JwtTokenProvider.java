@@ -13,7 +13,7 @@ import java.util.Date;
 public class JwtTokenProvider {
 
     private final String jwtSecret = "ajksdbkajsd9uoq2308uiubsfd8923jbosdf80u23jbsdfsd";
-    private final int jwtExpiration = 120000; // 1800000 for 30 minutes to expire and 120000 for only two minutes
+    private final int jwtExpiration = 1800000; // 1800000 for 30 minutes, 600000 for 10 minutes, 300000 for 5 minutes, 120000 for 2 minutes to expire
 
     public String generateToken(Credential credential) throws JOSEException {
         Integer employeeId = credential.getEmployeeId();

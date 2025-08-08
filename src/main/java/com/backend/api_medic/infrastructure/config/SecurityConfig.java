@@ -9,6 +9,7 @@ import com.backend.api_medic.infrastructure.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -37,6 +38,7 @@ public class SecurityConfig {
     private JwtTokenProvider jwtTokenProvider;
 
     @Autowired
+    @Lazy
     private CredentialService credentialService;
 
     @Autowired

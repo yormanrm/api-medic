@@ -53,4 +53,6 @@ public class Patient {
 
     private LocalDateTime dateUpdated;
 
+    private boolean logicallyRemoved;
+
 }

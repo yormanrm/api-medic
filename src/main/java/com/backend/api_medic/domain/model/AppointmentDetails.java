@@ -41,4 +41,5 @@ public class AppointmentDetails {
     private LocalDateTime dateCreated;
 
     private LocalDateTime dateUpdated;
+    private boolean logicallyRemoved;
 }

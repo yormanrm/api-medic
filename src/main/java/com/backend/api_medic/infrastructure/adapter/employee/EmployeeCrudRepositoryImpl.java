@@ -57,7 +57,8 @@ public class EmployeeCrudRepositoryImpl implements IEmployeeRepository {
                         bCryptPasswordEncoder.encode(generatedPassword),
                         role,
                         null,
-                        null);
+                        null,
+                        false);
                 iCredentialCrudRepository.save(credentialMapper.toCredentialEntity(credential));
                 NewEmployeeDTO newEmployeeDTO = new NewEmployeeDTO(
                         savedEmployee.getFullName(),

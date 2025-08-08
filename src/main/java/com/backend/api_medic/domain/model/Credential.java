@@ -41,4 +41,5 @@ public class Credential {
     private String role;
     private LocalDateTime dateCreated;
     private LocalDateTime dateUpdated;
+    private boolean logicallyRemoved;
 }

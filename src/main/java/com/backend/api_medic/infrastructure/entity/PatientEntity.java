@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -30,4 +31,6 @@ public class PatientEntity {
 
     @UpdateTimestamp
     private LocalDateTime dateUpdated;
+
+    private boolean logicallyRemoved;
 }
