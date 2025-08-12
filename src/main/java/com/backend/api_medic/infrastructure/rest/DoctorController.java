@@ -62,4 +62,16 @@ public class DoctorController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @DeleteMapping("/delete-byID")
+    public ResponseEntity<ApiResponseDTO<Object>> deleteByID(@RequestParam Integer id) {
+        doctorService.deleteById(id);
+        ApiResponseDTO<Object> response = new ApiResponseDTO<>(
+                200,
+                false,
+                "Doctor with ID equals to " + id + " deleted",
+                null
+        );
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }

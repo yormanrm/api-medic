@@ -5,6 +5,7 @@ import com.backend.api_medic.domain.model.Doctor;
 import com.backend.api_medic.domain.ports.IDoctorRepository;
 import com.backend.api_medic.infrastructure.adapter.credential.ICredentialCrudRepository;
 import com.backend.api_medic.infrastructure.dto.response.NewEmployeeDTO;
+import com.backend.api_medic.infrastructure.entity.CredentialEntity;
 import com.backend.api_medic.infrastructure.entity.DoctorEntity;
 import com.backend.api_medic.infrastructure.exception.EmptyIterableException;
 import com.backend.api_medic.infrastructure.exception.ResourceAlreadyExistsException;
@@ -100,6 +101,26 @@ public class DoctorCrudRepositoryImpl implements IDoctorRepository {
             throw new EmptyIterableException("There are no registered doctors with a full name, specialty or professional license similar to " + textfield);
         } else {
             return doctors;
+        }
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        Optional<DoctorEntity> optionalDoctorEntity = iDoctorCrudRepository.findById(id);
+        if (optionalDoctorEntity.isPresent()) {
+            DoctorEntity doctorEntity = optionalDoctorEntity.get();
+            doctorEntity.setLogicallyRemoved(true);
+            iDoctorCrudRepository.save(doctorEntity);
+            Optional<CredentialEntity> optionalCredentialEntity = iCredentialCrudRepository.findByEmployeeIdAndRole(id, "DOCTOR");
+            if (optionalCredentialEntity.isPresent()) {
+                CredentialEntity credentialEntity = optionalCredentialEntity.get();
+                credentialEntity.setLogicallyRemoved(true);
+                iCredentialCrudRepository.save(credentialEntity);
+            } else {
+                throw new ResourceNotFoundException("Credential for doctor with ID " + id + " not found");
+            }
+        } else {
+            throw new ResourceNotFoundException("Doctor with ID " + id + " not found");
         }
     }
 

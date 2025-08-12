@@ -26,4 +26,8 @@ public class DoctorService {
     public Iterable<Doctor> searchBySomeTextfield(String textfield) {
         return iDoctorRepository.searchBySomeTextfield(textfield);
     }
+
+    public void deleteById(Integer id) {
+        iDoctorRepository.deleteById(id);
+    }
 }
