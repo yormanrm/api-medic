@@ -62,4 +62,16 @@ public class EmployeeController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @DeleteMapping("/delete-byID")
+    public ResponseEntity<ApiResponseDTO<Object>> deleteByID(@RequestParam Integer id, @RequestParam String role) {
+        employeeService.deleteById(id, role);
+        ApiResponseDTO<Object> response = new ApiResponseDTO<>(
+                200,
+                false,
+                "Employee with ID equals to " + id + " deleted",
+                null
+        );
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }

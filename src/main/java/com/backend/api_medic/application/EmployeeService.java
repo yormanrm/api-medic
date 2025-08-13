@@ -26,4 +26,8 @@ public class EmployeeService {
     public Iterable<Employee> searchBySomeTextfield(String textfield) {
         return iEmployeeRepository.searchBySomeTextfield(textfield);
     }
+
+    public void deleteById(Integer id, String role) {
+        iEmployeeRepository.deleteById(id, role);
+    }
 }
