@@ -61,4 +61,28 @@ public class PatientController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @DeleteMapping("/delete-byID")
+    public ResponseEntity<ApiResponseDTO<Object>> deleteByID(@RequestParam Integer id) {
+        patientService.deleteById(id);
+        ApiResponseDTO<Object> response = new ApiResponseDTO<>(
+                200,
+                false,
+                "Patient with ID equals to " + id + " deleted",
+                null
+        );
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<ApiResponseDTO<Object>> update(@Valid @RequestBody Patient patient) {
+        patientService.update(patient);
+        ApiResponseDTO<Object> response = new ApiResponseDTO<>(
+                200,
+                false,
+                "Patient with ID equals to " + patient.getId() + " updated",
+                null
+        );
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }

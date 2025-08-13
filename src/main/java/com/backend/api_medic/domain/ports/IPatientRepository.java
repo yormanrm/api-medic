@@ -10,5 +10,8 @@ public interface IPatientRepository {
     Patient findById(Integer id);
 
     Iterable<Patient> searchByFullName(String name);
-//    void deleteById(Integer id);
+
+    void deleteById(Integer id);
+
+    void update(Patient patient);
 }

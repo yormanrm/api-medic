@@ -25,4 +25,12 @@ public class PatientService {
     public Iterable<Patient> searchByFullName(String name) {
         return iPatientRepository.searchByFullName(name);
     }
+
+    public void deleteById(Integer id) {
+        iPatientRepository.deleteById(id);
+    }
+
+    public void update(Patient patient) {
+        iPatientRepository.update(patient);
+    }
 }

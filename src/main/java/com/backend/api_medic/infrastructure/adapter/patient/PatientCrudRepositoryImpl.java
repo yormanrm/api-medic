@@ -62,4 +62,48 @@ public class PatientCrudRepositoryImpl implements IPatientRepository {
         }
     }
 
+    @Override
+    public void deleteById(Integer id) {
+        Optional<PatientEntity> optionalPatientEntity = iPatientCrudRepository.findById(id);
+        if (optionalPatientEntity.isPresent()) {
+            PatientEntity patientEntity = optionalPatientEntity.get();
+            patientEntity.setLogicallyRemoved(true);
+            iPatientCrudRepository.save(patientEntity);
+        } else {
+            throw new ResourceNotFoundException("Patient with ID " + id + " not found");
+        }
+    }
+
+    @Override
+    public void update(Patient patient) {
+        Optional<PatientEntity> optionalPatientEntity = iPatientCrudRepository.findById(patient.getId());
+        if (optionalPatientEntity.isPresent()) {
+            try {
+                PatientEntity existingEntity = optionalPatientEntity.get();
+                boolean hasChanges = !existingEntity.getFullName().equals(patient.getFullName()) ||
+                                !existingEntity.getBirthday().equals(patient.getBirthday()) ||
+                                !existingEntity.getAddress().equals(patient.getAddress()) ||
+                                !existingEntity.getTelephone().equals(patient.getTelephone()) ||
+                                !existingEntity.getEmail().equals(patient.getEmail());
+
+                if (hasChanges) {
+                    existingEntity.setFullName(patient.getFullName());
+                    existingEntity.setBirthday(patient.getBirthday());
+                    existingEntity.setAddress(patient.getAddress());
+                    existingEntity.setTelephone(patient.getTelephone());
+                    existingEntity.setEmail(patient.getEmail());
+
+                    iPatientCrudRepository.save(existingEntity);
+                } else {
+                    throw new RuntimeException("No changes detected for patient with ID " + patient.getId());
+                }
+
+            } catch (Exception e) {
+                throw new RuntimeException("Error updating patient with ID " + patient.getId() + ": " + e.getMessage());
+            }
+        } else {
+            throw new ResourceNotFoundException("Patient with ID " + patient.getId() + " not found");
+        }
+    }
+
 }
