@@ -30,4 +30,8 @@ public class DoctorService {
     public void deleteById(Integer id) {
         iDoctorRepository.deleteById(id);
     }
+
+    public void update(Doctor doctor) {
+        iDoctorRepository.update(doctor);
+    }
 }

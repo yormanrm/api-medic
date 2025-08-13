@@ -13,4 +13,6 @@ public interface IDoctorRepository {
     Iterable<Doctor> searchBySomeTextfield(String textfield);
 
     void deleteById(Integer id);
+
+    void update(Doctor doctor);
 }

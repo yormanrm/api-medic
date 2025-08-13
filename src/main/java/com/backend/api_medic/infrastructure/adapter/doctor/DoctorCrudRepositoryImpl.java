@@ -60,14 +60,14 @@ public class DoctorCrudRepositoryImpl implements IDoctorRepository {
                         null,
                         null,
                         false);
-               iCredentialCrudRepository.save(credentialMapper.toCredentialEntity(credential));
-               NewEmployeeDTO newEmployeeDTO = new NewEmployeeDTO(
-                       savedDoctor.getFullName(),
-                       generatedUsername,
-                       generatedPassword,
-                       credential.getRole()
-               );
-               return newEmployeeDTO;
+                iCredentialCrudRepository.save(credentialMapper.toCredentialEntity(credential));
+                NewEmployeeDTO newEmployeeDTO = new NewEmployeeDTO(
+                        savedDoctor.getFullName(),
+                        generatedUsername,
+                        generatedPassword,
+                        credential.getRole()
+                );
+                return newEmployeeDTO;
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -77,7 +77,7 @@ public class DoctorCrudRepositoryImpl implements IDoctorRepository {
     @Override
     public Iterable<Doctor> findAll() {
         Iterable<Doctor> doctors = doctorMapper.toDoctors(iDoctorCrudRepository.findAll());
-        if(IterableUtils.isEmpty(doctors)) {
+        if (IterableUtils.isEmpty(doctors)) {
             throw new EmptyIterableException("There are no registered doctors");
         } else {
             return doctors;
@@ -87,7 +87,7 @@ public class DoctorCrudRepositoryImpl implements IDoctorRepository {
     @Override
     public Doctor findById(Integer id) {
         Optional<DoctorEntity> optionalDoctorEntity = iDoctorCrudRepository.findById(id);
-        if(optionalDoctorEntity.isPresent()) {
+        if (optionalDoctorEntity.isPresent()) {
             return doctorMapper.toDoctor(optionalDoctorEntity.get());
         } else {
             throw new ResourceNotFoundException("Doctor with ID " + id + " not found");
@@ -97,7 +97,7 @@ public class DoctorCrudRepositoryImpl implements IDoctorRepository {
     @Override
     public Iterable<Doctor> searchBySomeTextfield(String textfield) {
         Iterable<Doctor> doctors = doctorMapper.toDoctors(iDoctorCrudRepository.searchBySomeTextfield(textfield));
-        if(IterableUtils.isEmpty(doctors)) {
+        if (IterableUtils.isEmpty(doctors)) {
             throw new EmptyIterableException("There are no registered doctors with a full name, specialty or professional license similar to " + textfield);
         } else {
             return doctors;
@@ -124,4 +124,37 @@ public class DoctorCrudRepositoryImpl implements IDoctorRepository {
         }
     }
 
+    @Override
+    public void update(Doctor doctor) {
+        Optional<DoctorEntity> optionalDoctorEntity = iDoctorCrudRepository.findById(doctor.getId());
+        if (optionalDoctorEntity.isPresent()) {
+            try {
+                DoctorEntity existingEntity = optionalDoctorEntity.get();
+                boolean hasChanges = !existingEntity.getFullName().equals(doctor.getFullName()) ||
+                                !existingEntity.getBirthday().equals(doctor.getBirthday()) ||
+                                !existingEntity.getSpecialty().equals(doctor.getSpecialty()) ||
+                                !existingEntity.getProfessionalLicense().equals(doctor.getProfessionalLicense()) ||
+                                !existingEntity.getTelephone().equals(doctor.getTelephone()) ||
+                                !existingEntity.getEmail().equals(doctor.getEmail());
+
+                if (hasChanges) {
+                    existingEntity.setFullName(doctor.getFullName());
+                    existingEntity.setBirthday(doctor.getBirthday());
+                    existingEntity.setSpecialty(doctor.getSpecialty());
+                    existingEntity.setProfessionalLicense(doctor.getProfessionalLicense());
+                    existingEntity.setTelephone(doctor.getTelephone());
+                    existingEntity.setEmail(doctor.getEmail());
+
+                    iDoctorCrudRepository.save(existingEntity);
+                } else {
+                    throw new RuntimeException("No changes detected for doctor with ID " + doctor.getId());
+                }
+
+            } catch (Exception e) {
+                throw new RuntimeException("Error updating doctor with ID " + doctor.getId() + ": " + e.getMessage());
+            }
+        } else {
+            throw new ResourceNotFoundException("Doctor with ID " + doctor.getId() + " not found");
+        }
+    }
 }

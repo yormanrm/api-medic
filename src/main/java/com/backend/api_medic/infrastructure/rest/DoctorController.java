@@ -74,4 +74,16 @@ public class DoctorController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<ApiResponseDTO<Object>> update(@Valid @RequestBody Doctor doctor) {
+        doctorService.update(doctor);
+        ApiResponseDTO<Object> response = new ApiResponseDTO<>(
+                200,
+                false,
+                "Doctor with ID equals to " + doctor.getId() + " updated",
+                null
+        );
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }
