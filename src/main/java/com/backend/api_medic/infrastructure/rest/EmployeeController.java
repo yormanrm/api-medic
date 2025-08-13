@@ -1,6 +1,7 @@
 package com.backend.api_medic.infrastructure.rest;
 
 import com.backend.api_medic.application.EmployeeService;
+import com.backend.api_medic.domain.model.Employee;
 import com.backend.api_medic.infrastructure.dto.request.EmployeeDTO;
 import com.backend.api_medic.infrastructure.dto.request.SearchTextRequestDTO;
 import com.backend.api_medic.infrastructure.dto.response.ApiResponseDTO;
@@ -69,6 +70,18 @@ public class EmployeeController {
                 200,
                 false,
                 "Employee with ID equals to " + id + " deleted",
+                null
+        );
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<ApiResponseDTO<Object>> update(@Valid @RequestBody Employee employee) {
+        employeeService.update(employee);
+        ApiResponseDTO<Object> response = new ApiResponseDTO<>(
+                200,
+                false,
+                "Employee with ID equals to " + employee.getId() + " updated",
                 null
         );
         return new ResponseEntity<>(response, HttpStatus.OK);

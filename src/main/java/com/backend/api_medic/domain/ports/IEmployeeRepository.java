@@ -13,4 +13,6 @@ public interface IEmployeeRepository {
     Iterable<Employee> searchBySomeTextfield(String textfield);
 
     void deleteById(Integer id, String role);
+
+    void update(Employee employee);
 }

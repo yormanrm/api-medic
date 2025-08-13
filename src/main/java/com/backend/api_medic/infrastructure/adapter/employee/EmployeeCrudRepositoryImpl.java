@@ -6,7 +6,6 @@ import com.backend.api_medic.domain.ports.IEmployeeRepository;
 import com.backend.api_medic.infrastructure.adapter.credential.ICredentialCrudRepository;
 import com.backend.api_medic.infrastructure.dto.response.NewEmployeeDTO;
 import com.backend.api_medic.infrastructure.entity.CredentialEntity;
-import com.backend.api_medic.infrastructure.entity.DoctorEntity;
 import com.backend.api_medic.infrastructure.entity.EmployeeEntity;
 import com.backend.api_medic.infrastructure.exception.EmptyIterableException;
 import com.backend.api_medic.infrastructure.exception.ResourceAlreadyExistsException;
@@ -122,6 +121,40 @@ public class EmployeeCrudRepositoryImpl implements IEmployeeRepository {
             }
         } else {
             throw new ResourceNotFoundException("Employee with ID " + id + " not found");
+        }
+    }
+
+    @Override
+    public void update(Employee employee) {
+        Optional<EmployeeEntity> optionalEmployeeEntity = iEmployeeCrudRepository.findById(employee.getId());
+        if (optionalEmployeeEntity.isPresent()) {
+            try {
+                EmployeeEntity existingEntity = optionalEmployeeEntity.get();
+                boolean hasChanges = !existingEntity.getFullName().equals(employee.getFullName()) ||
+                                !existingEntity.getBirthday().equals(employee.getBirthday()) ||
+                                !existingEntity.getAcademicDegree().equals(employee.getAcademicDegree()) ||
+                                !existingEntity.getProfessionalLicense().equals(employee.getProfessionalLicense()) ||
+                                !existingEntity.getTelephone().equals(employee.getTelephone()) ||
+                                !existingEntity.getEmail().equals(employee.getEmail());
+
+                if (hasChanges) {
+                    existingEntity.setFullName(employee.getFullName());
+                    existingEntity.setBirthday(employee.getBirthday());
+                    existingEntity.setAcademicDegree(employee.getAcademicDegree());
+                    existingEntity.setProfessionalLicense(employee.getProfessionalLicense());
+                    existingEntity.setTelephone(employee.getTelephone());
+                    existingEntity.setEmail(employee.getEmail());
+
+                    iEmployeeCrudRepository.save(existingEntity);
+                } else {
+                    throw new RuntimeException("No changes detected for employee with ID " + employee.getId());
+                }
+
+            } catch (Exception e) {
+                throw new RuntimeException("Error updating employee with ID " + employee.getId() + ": " + e.getMessage());
+            }
+        } else {
+            throw new ResourceNotFoundException("Employee with ID " + employee.getId() + " not found");
         }
     }
 }

@@ -30,4 +30,8 @@ public class EmployeeService {
     public void deleteById(Integer id, String role) {
         iEmployeeRepository.deleteById(id, role);
     }
+
+    public void update(Employee employee) {
+        iEmployeeRepository.update(employee);
+    }
 }
